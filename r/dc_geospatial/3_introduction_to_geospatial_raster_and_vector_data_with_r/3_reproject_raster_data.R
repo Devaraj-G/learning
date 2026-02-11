@@ -6,9 +6,9 @@ library(ggplot2)
 library(dplyr)
 
 # load data
-dsm_harv <- rast('./data/2009586/NEON-DS-Airborne-Remote-Sensing/HARV/DTM/HARV_dtmCrop.tif')
+dsm_harv <- rast("../data/2009586/NEON-DS-Airborne-Remote-Sensing/HARV/DTM/HARV_dtmCrop.tif")
 
-dsm_hill_harv <- rast('./data/2009586/NEON-DS-Airborne-Remote-Sensing/HARV/DTM/HARV_DTMhill_WGS84.tif')
+dsm_hill_harv <- rast("../data/2009586/NEON-DS-Airborne-Remote-Sensing/HARV/DTM/HARV_DTMhill_WGS84.tif")
 
 # for using ggplot, convert to data frame
 dtm_harv_df <- as.data.frame(dsm_harv, xy = TRUE)
@@ -18,12 +18,12 @@ dtm_hill_harv_df <- as.data.frame(dsm_hill_harv, xy = TRUE)
 ggplot() +
   geom_raster(data = dtm_harv_df, aes(x = x, y = y, fill = HARV_dtmCrop)) +
   geom_raster(data = dtm_hill_harv_df, aes(x = x, y = y, alpha = HARV_DTMhill_WGS84)) +
-  scale_fill_gradientn(name = 'Elevation', colors = terrain.colors(10)) +
+  scale_fill_gradientn(name = "Elevation", colors = terrain.colors(10)) +
   coord_quickmap()
 
 ggplot() +
   geom_raster(data = dtm_harv_df, aes(x = x, y = y, fill = HARV_dtmCrop)) +
-  scale_fill_gradientn(name = 'Elevation', colors = terrain.colors(10)) +
+  scale_fill_gradientn(name = "Elevation", colors = terrain.colors(10)) +
   coord_quickmap()
 
 ggplot() +
@@ -57,12 +57,5 @@ dtm_hill_utm_harv_df <- as.data.frame(dtm_hill_utm_harv, xy = TRUE)
 ggplot() +
   geom_raster(data = dtm_harv_df, aes(x = x, y = y, fill = HARV_dtmCrop)) +
   geom_raster(data = dtm_hill_utm_harv_df, aes(x = x, y = y, alpha = HARV_DTMhill_WGS84)) +
-  scale_fill_gradientn(name = 'Elevation', colors = terrain.colors(10)) +
+  scale_fill_gradientn(name = "Elevation", colors = terrain.colors(10)) +
   coord_quickmap()
-
-
-
-
-
-
-

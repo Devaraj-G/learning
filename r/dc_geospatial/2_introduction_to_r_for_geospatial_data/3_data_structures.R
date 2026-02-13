@@ -74,9 +74,19 @@ str(factor_ordering_example)
 factor_ordering_example <- factor(mydata, levels = c('control', 'case'))
 str(factor_ordering_example)
 
+# Lists
+list_example <- list(1, 'a', TRUE, c(2,6,7))
+# explain [[]] and [] difference
+list_example[[1]]
+list_example[[4]]
+list_example[[4]][3]
 
+# subsetting
+x <- c(a=5,b=6.2,c=7.1,d=48,e=7.5)
+x[c('a','c')] # use name
+x[c(1,3)] # index
+x[c(TRUE, FALSE, TRUE, FALSE, FALSE)] # logical
+x[x<=6]
 
-
-
-
-
+names(x)
+x[names(x) == 'a']

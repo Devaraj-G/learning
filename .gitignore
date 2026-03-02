@@ -1,4 +1,4 @@
-# Folders
+# Exclude everything in folders
 outputs/
 figures/
 data/
@@ -57,6 +57,17 @@ data/
 *.cache
 *.log
 *.tmp
+## Compressed file formats
+*.zip
+*.tar
+*.gz
+*.bz2
+*.xz
+*.7z
+*.rar
+*.iso
+*.dmg
+*.pkg
 
 # ------------------------------
 # Everything below is-----------

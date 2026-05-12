@@ -4,11 +4,12 @@ figures/
 data/
 documents/
 repos/
+envs/
+
+## Jupyter notebooks
 
 # File types
-## Jupyter notebooks
 *.ipynb
-## 
 *.html
 *.doc
 *.docx

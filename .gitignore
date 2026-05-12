@@ -2,11 +2,13 @@
 outputs/
 figures/
 data/
+documents/
+repos/
 
 # File types
 ## Jupyter notebooks
 *.ipynb
-## Documents
+## 
 *.html
 *.doc
 *.docx

@@ -4,7 +4,10 @@ figures/
 data/
 
 # File types
+## Jupyter notebooks
+*.ipynb
 ## Documents
+*.html
 *.doc
 *.docx
 *.xls

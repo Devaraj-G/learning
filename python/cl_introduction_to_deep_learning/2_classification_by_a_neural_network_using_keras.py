@@ -13,37 +13,22 @@
 #     name: python3
 # ---
 
-# %% [markdown]
-# # 1. Problem: Predict penguins' species using dataset
-
-# %% [markdown]
-# # 2. What are the inputs/outputs?
-
 # %%
+# Import libraries
+import tensorflow, sklearn
 import seaborn as sns
 
 # %%
-# Load data
-penguins = sns.load_dataset('penguins')
-
-# %%
-# Inspect data
-penguins.head()
-
-# %%
-penguins.shape
-
-# %%
-# Visulaization
-sns.pairplot(penguins, hue = 'species')
-
-# %%
-sns.pairplot(penguins, hue = 'sex')
+# Print versions
+print(tensorflow.__version__)
+print(sns.__version__)
+print(sklearn.__version__)
 
 # %% [markdown]
 # # Prepare data
 
 # %%
+penguins = sns.load_dataset('penguins')
 # Drop categorical columns
 penguins_filtered = penguins.drop(columns = ['island', 'sex'])
 penguins_filtered.head()
@@ -77,15 +62,7 @@ target.head()
 target[200:210]
 
 # %%
-# Split into test/train sets
-from sklearn.model_selection import train_test_split
-X_train, X_test, y_train, y_test = train_test_split(features, target,
-                                                  test_size = 0.2,
-                                                  random_state = 0,
-                                                  shuffle = True)
-temp = X_test
-temp['species'] = penguins_filtered['species']
-sns.pairplot(temp, hue = 'species')
+features
 
 # %%
 # Split into test/train sets
@@ -96,10 +73,6 @@ X_train, X_test, y_train, y_test = train_test_split(features, target,
                                                   shuffle = True,
                                                   stratify = target)
 
-# %%
-temp = X_test
-temp['species'] = penguins_filtered['species']
-sns.pairplot(temp, hue = 'species')
 
 # %% [markdown]
 # # 4. Build architecture from scratch
@@ -110,7 +83,7 @@ from tensorflow import keras
 
 # %%
 # Set random seeds
-keras.utils.set_random_seed(2)
+keras.utils.set_random_seed(621)
 
 # %%
 X_train.shape
@@ -145,5 +118,85 @@ model.summary()
 
 # %%
 model.dtype
+
+# %%
+keras.utils.plot_model(
+    model,
+    show_shapes=True,
+    show_layer_names=True,
+    show_layer_activations=True,
+    show_trainable=True
+)
+
+# %% [markdown]
+# # 5. Choose a loss function and optimizer
+
+# %%
+model.compile(optimizer='adam', loss=keras.losses.CategoricalCrossentropy())
+
+# %% [markdown]
+# # 6. Train model
+
+# %%
+history = model.fit(X_train, y_train, epochs=100)
+
+# %%
+sns.lineplot(x=history.epoch, y=history.history['loss'])
+
+# %% [markdown]
+# # 7. Perform a prediction/classification
+
+# %%
+y_pred = model.predict(X_test)
+prediction = pd.DataFrame(y_pred, columns=target.columns)
+prediction
+
+# %%
+predicted_species = prediction.idxmax(axis="columns")
+predicted_species
+
+# %% [markdown]
+# # 8. Measuring performance
+
+# %%
+from sklearn.metrics import confusion_matrix
+
+true_species = y_test.idxmax(axis="columns")
+
+matrix = confusion_matrix(true_species, predicted_species)
+print(matrix)
+
+# %%
+# Convert to a pandas dataframe
+confusion_df = pd.DataFrame(matrix, index=y_test.columns.values, columns=y_test.columns.values)
+
+# Set the names of the x and y axis, this helps with the readability of the heatmap.
+confusion_df.index.name = 'True Label'
+confusion_df.columns.name = 'Predicted Label'
+confusion_df.head()
+
+# %%
+sns.heatmap(confusion_df, annot=True, cmap='Blues')
+
+# %% [markdown]
+# # 9. Refine model
+
+# %% [markdown]
+# # 10. Share model
+
+# %%
+model.save('my_first_model.keras')
+
+# %%
+pretrained_model = keras.models.load_model('my_first_model.keras')
+
+# %%
+# use the pretrained model here
+y_pretrained_pred = pretrained_model.predict(X_test)
+pretrained_prediction = pd.DataFrame(y_pretrained_pred, columns=target.columns.values)
+
+# idxmax will select the column for each row with the highest value
+pretrained_predicted_species = pretrained_prediction.idxmax(axis="columns")
+print(pretrained_predicted_species)
 
 # %%

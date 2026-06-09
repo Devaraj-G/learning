@@ -2,9 +2,15 @@
 outputs/
 figures/
 data/
+documents/
+repos/
+envs/
+
+## Jupyter notebooks
 
 # File types
-## Documents
+*.ipynb
+*.html
 *.doc
 *.docx
 *.xls

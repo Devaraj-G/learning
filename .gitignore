@@ -928,3 +928,5 @@ Backup of *.doc*
 # Private key
 *.ppk
 
+.Rproj.user
+.positai

@@ -6,8 +6,11 @@ documents/
 repos/
 envs/
 
+## Jupyter notebooks
+
 # File types
-## Documents
+*.ipynb
+*.html
 *.doc
 *.docx
 *.xls
@@ -925,3 +928,5 @@ Backup of *.doc*
 # Private key
 *.ppk
 
+.Rproj.user
+.positai
